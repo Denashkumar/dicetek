@@ -70,27 +70,6 @@ This project implements two Spring Boot microservices: **Student Service** and *
 - Run: `mvn test` in `student-service/` or `fee-service/`.
 - Coverage: Controller and service layers using JUnit 5 and Mockito.
 
-## Troubleshooting
-- **"Cannot resolve symbol 'hateoas'"**:
-  - Verify `spring-boot-starter-hateoas` in `pom.xml`.
-  - Run `mvn clean install -U`.
-- **"Cannot resolve symbol 'ServiceUnavailableException'"**:
-  - Verify `ServiceUnavailableException.java` in `fee-service/src/main/java/com/example/feeservice/exception`.
-  - Ensure `FeeService.java` uses correct import.
-- **"Cannot find symbol"**:
-  - Verify `Student.java` has `setStudentId(Long)` (~line 20).
-  - Clear cache: `rm -rf ~/.m2/repository`.
-  - Run: `mvn clean install -U`.
-  - Debug: `mvn clean compile -X > build.log` and share `build.log`.
-- **Inter-service Failure**:
-  - Ensure Student Service is running before Fee Service.
-  - Check logs for Resilience4j retry/circuit breaker events.
-- **Java Version Mismatch**:
-  - Confirm JDK 17: `java -version`.
-  - Update IDE: IntelliJ (`File > Project Structure > SDK: 17`), Eclipse (`Project > Properties > Java Compiler > 17`).
-- **Dependencies**:
-  - Resolve conflicts: `mvn dependency:tree`.
-
 ## Swagger Documentation
 - Student Service: `http://localhost:8081/swagger-ui.html`
 - Fee Service: `http://localhost:8082/swagger-ui.html`
