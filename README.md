@@ -74,6 +74,9 @@ This project implements two Spring Boot microservices: **Student Service** and *
 - **"Cannot resolve symbol 'hateoas'"**:
   - Verify `spring-boot-starter-hateoas` in `pom.xml`.
   - Run `mvn clean install -U`.
+- **"Cannot resolve symbol 'ServiceUnavailableException'"**:
+  - Verify `ServiceUnavailableException.java` in `fee-service/src/main/java/com/example/feeservice/exception`.
+  - Ensure `FeeService.java` uses correct import.
 - **"Cannot find symbol"**:
   - Verify `Student.java` has `setStudentId(Long)` (~line 20).
   - Clear cache: `rm -rf ~/.m2/repository`.
