@@ -9,7 +9,7 @@
         <version>3.3.5</version>
         <relativePath/>
     </parent>
-    <groupId>com.dicetek</groupId>
+    <groupId>com.example</groupId>
     <artifactId>fee-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Fee Service</name>
@@ -46,6 +46,11 @@
             <groupId>io.github.resilience4j</groupId>
             <artifactId>resilience4j-spring-boot3</artifactId>
             <version>2.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.0.2</version> <!-- Use the appropriate version for your project -->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
