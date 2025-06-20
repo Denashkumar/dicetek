@@ -1,0 +1,159 @@
+openapi: 3.0.3
+info:
+  title: Fee Service API
+  version: 1.0.0
+  description: API for managing student fee collection and receipts
+servers:
+  - url: http://localhost:8082/api
+    description: Fee Service API
+paths:
+  /fees:
+    get:
+      summary: Retrieve all fees
+      operationId: getAllFees
+      responses:
+        '200':
+          description: List of fees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fee'
+    post:
+      summary: Collect a fee payment
+      operationId: createFee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Fee'
+      responses:
+        '201':
+          description: Fee collected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fee'
+        '400':
+          description: Invalid request
+        '404':
+          description: Student not found
+  /fees/{id}:
+    get:
+      summary: Retrieve a fee by ID
+      operationId: getFeeById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Fee details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fee'
+        '404':
+          description: Fee not found
+  /fees/student/{studentId}:
+    get:
+      summary: Retrieve fees by student ID
+      operationId: getFeesByStudentId
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: List of fees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fee'
+        '404':
+          description: No fees or student found
+  /receipts/{feeId}:
+    get:
+      summary: View receipt for a fee
+      operationId: getReceipt
+      parameters:
+        - name: feeId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Receipt details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receipt'
+        '404':
+          description: Fee not found
+components:
+  schemas:
+    Fee:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        studentId:
+          type: integer
+          format: int64
+        amount:
+          type: number
+          format: double
+        dueDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum:
+            - PAID
+        paymentDate:
+          type: string
+          format: date
+      required:
+        - studentId
+        - amount
+        - dueDate
+        - status
+    Receipt:
+      type: object
+      properties:
+        feeId:
+          type: integer
+          format: int64
+        studentId:
+          type: integer
+          format: int64
+        studentName:
+          type: string
+        amount:
+          type: number
+          format: double
+        paymentDate:
+          type: string
+          format: date
+        status:
+          type: string
+      required:
+        - feeId
+        - studentId
+        - studentName
+        - amount
+        - paymentDate
+        - status
